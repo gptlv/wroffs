@@ -1,4 +1,4 @@
-package domain
+package record
 
 type Record struct {
 	ID          string `csv:"id"`
