@@ -6,12 +6,10 @@ import (
 
 	"github.com/charmbracelet/log"
 	"github.com/gocarina/gocsv"
-	"github.com/gptlv/woffs/internal/record"
-	"github.com/gptlv/woffs/internal/util"
 	"github.com/lukasjarosch/go-docx"
 )
 
-var inputFile = "write_off_records.csv"
+var inputFile = "records.csv"
 var templates = []string{"commitee", "dismissal", "record"}
 var templatesFolder = "templates"
 var outputFolder = "output"
@@ -24,9 +22,9 @@ func main() {
 }
 
 func GenerateWriteOffDocuments() error {
-	dismissalRecords := []*record.Record{}
+	dismissalRecords := []*Record{}
 
-	file, err := util.ReadInputFile(inputFile)
+	file, err := ReadInputFile(inputFile)
 	if err != nil {
 		return fmt.Errorf("failed to read input file %s: %w", inputFile, err)
 	}
@@ -42,7 +40,7 @@ func GenerateWriteOffDocuments() error {
 		recordFolderPath := filepath.Join(outputFolder, recordFolder)
 		log.Info(fmt.Sprintf("creating directory %s", recordFolderPath))
 
-		_, err := util.CreateDirectory(recordFolderPath)
+		_, err := CreateDirectory(recordFolderPath)
 		if err != nil {
 			return fmt.Errorf("failed to create folder for %s: %w", record.ISC, err)
 		}
@@ -51,7 +49,7 @@ func GenerateWriteOffDocuments() error {
 	for _, record := range dismissalRecords {
 		recordFolder := record.ISC
 		placeholderMap := docx.PlaceholderMap{}
-		recordMap := util.StructToMap(record)
+		recordMap := StructToMap(record)
 
 		for key, value := range recordMap {
 			placeholderMap[key] = value
