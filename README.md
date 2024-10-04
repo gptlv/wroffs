@@ -1,6 +1,6 @@
 # wroffs
 
-[🇷🇺Русская версия](README.ru.md)
+[🇷🇺 Русская версия](README.ru.md)
 
 This application is designed for automating the creation of documents based on data from a CSV file. It reads records and generates documents using DOCX templates.
 
